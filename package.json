@@ -57,7 +57,7 @@
   "homepage": "https://git.ibaraki.app/apps/iscsi-manager",
   "build": {
     "appId": "app.ibaraki.iscsi-manager",
-    "productName": "ISCSI Manager",
+    "productName": "ISCSI-Manager",
     "files": [
       "dist/browser/**/*",
       "node_modules/**/*",

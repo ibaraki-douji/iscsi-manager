@@ -9,14 +9,14 @@ build:
   before_script:
     - npm install --legacy-peer-deps
   script:
+    - test "$CI_COMMIT_BRANCH" == "master" && echo "Creating Latest" || node -e "const { writeFileSync } = require('fs'); const p = require('./package.json'); p.version = p.version + '-dev'; writeFileSync('package.json', JSON.stringify(p));" && echo "Creating Dev"
     - export VERSION=$(node -e "console.log(require('./package.json').version)")
     - echo "VERSION=$VERSION" >> variables.env
-    - export APPNAME=$(node -e "console.log(require('./package.json').productName)")
+    - export APPNAME=$(node -e "console.log(require('./package.json').build.productName)")
     - echo "APPNAME=$APPNAME" >> variables.env
-    - test "$CI_COMMIT_BRANCH" == "master" && export APPNAME="$APPNAME" || export APPNAME="$APPNAME-dev"
+    - echo "APPNAME_LOWER=$(echo $APPNAME | tr '[:upper:]' '[:lower:]')" >> variables.env
     - npm run pack
-    - apt update && apt install rename -y
-    - cd dist && rename 's/ /-/g' * && cd ..
+    
   artifacts:
     reports:
       dotenv: variables.env
@@ -30,7 +30,7 @@ build:
 
 variables:
   LINUX_BINARY: '${APPNAME}-${VERSION}.AppImage'
-  LINUX_INSTALLER: '${APPNAME}_${VERSION}_amd64.deb'
+  LINUX_INSTALLER: '${APPNAME_LOWER}_${VERSION}_amd64.deb'
   PACKAGE_REGISTRY_URL: '${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/${APPNAME}/${VERSION}'
   PACKAGE_REGISTRY_URL_YML: '${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/${APPNAME}'
 
