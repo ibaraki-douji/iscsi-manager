@@ -1,0 +1,46 @@
+<app-section class="quick-connect">
+
+    <app-section-title>Quick Connect</app-section-title>
+
+    <div class="section-content">
+    
+        <div class="target">
+
+            <span>Target:</span>
+
+            <app-text-input></app-text-input>
+
+            <app-button (click)="addTarget()">Quick Connect...</app-button>
+
+        </div>
+
+    </div>
+
+</app-section>
+
+<app-section class="targets">
+
+    <app-section-title>Discovered Targets</app-section-title>
+
+    <div class="section-content">
+
+        <span>Discovered targets are stored in Electron LocalStorage to avoid asking your password everytime. If you remove or add one from the CLI it wont update here.</span>
+
+        <app-list>
+           @for (target of targets; track $index){
+            <app-list-item>{{target}}</app-list-item>
+           }  
+        </app-list>
+
+    </div>
+</app-section>
+
+<app-section class="report">
+    
+        <app-section-title>Connect Logs</app-section-title>
+    
+        <div class="section-content">
+    
+            <pre>{{progress}}</pre>
+        </div>
+</app-section>

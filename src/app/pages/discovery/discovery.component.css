@@ -1,0 +1,25 @@
+.section-content{
+    display: flex;
+    flex-direction: column;
+} 
+
+.quick-connect .section-content .target{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+} 
+
+pre{
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow: auto;
+    max-height: 200px;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+app-text-input{
+    width: calc(100% - 220px);
+    min-width: 200px;
+} 

@@ -1,0 +1,46 @@
+<app-section>
+
+    <app-section-title>Volumes / Mount Points</app-section-title>
+    
+
+    <div class="section-content">
+
+        <span>Here you can see all the volumes and mount points</span>
+
+        <app-list>
+
+            <app-list-header>
+
+                <span>Name</span>
+
+                <span>Label</span>
+
+                <span>Size</span>
+
+                <span>Path</span>
+
+                <span>Mount Point</span>
+
+            </app-list-header>
+
+           @for (drive of localDrives; track $index){
+            <app-list-item>
+
+                <span>{{drive.name}}</span>
+
+                <span>{{drive.label}}</span>
+
+                <span>{{drive.size}}</span>
+
+                <span>{{drive.path}}</span>
+
+                <span>{{drive.mountpoint}}</span>
+
+
+            </app-list-item>
+           }   
+        </app-list>
+
+    </div>
+
+</app-section>

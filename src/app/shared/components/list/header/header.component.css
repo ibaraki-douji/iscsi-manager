@@ -1,0 +1,14 @@
+:host{
+    width: 100%;
+} 
+
+.container{
+    display: grid;
+    width: calc(100% - 20px);
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+:host /deep/ .container *:last-child{
+    text-align: right;
+} 

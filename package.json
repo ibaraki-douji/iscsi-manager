@@ -1,0 +1,77 @@
+{
+  "name": "iscsi-manager",
+  "version": "0.1.0",
+  "main": "lib/index.js",
+  "scripts": {
+    "ng": "ng",
+    "ng:start": "ng serve",
+    "ng:build": "ng build --output-path=dist",
+    "ng:watch": "ng build --watch --configuration development",
+    "ng:test": "ng test",
+    "electron": "electron",
+    "electron:start": "electron .",
+    "electron:build": "npm run electron:tsc && electron-builder",
+    "electron:tsc": "tsc -p tsconfig.electron.json",
+    "electron:test": "npm run electron:tsc && npm run electron:start",
+    "start": "NODE_ENV=dev npm-run-all --parallel ng:start electron:test",
+    "start:packed": "npm run ng:build && NODE_ENV=production npm run electron:test",
+    "pack": "npm run ng:build && npm run electron:build"
+  },
+  "dependencies": {
+    "@angular/animations": "^18.0.0",
+    "@angular/common": "^18.0.0",
+    "@angular/compiler": "^18.0.0",
+    "@angular/core": "^18.0.0",
+    "@angular/forms": "^18.0.0",
+    "@angular/platform-browser": "^18.0.0",
+    "@angular/platform-browser-dynamic": "^18.0.0",
+    "@angular/router": "^18.0.0",
+    "ngx-electronyzer": "^1.0.2",
+    "rxjs": "~7.8.0",
+    "sudo-prompt": "^9.2.1",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.14.3"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^18.0.2",
+    "@angular/cli": "^18.0.2",
+    "@angular/compiler-cli": "^18.0.0",
+    "@types/jasmine": "~5.1.0",
+    "electron": "^30.0.9",
+    "electron-builder": "^24.13.3",
+    "jasmine-core": "~5.1.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.2.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.1.0",
+    "npm-run-all": "^4.1.5",
+    "typescript": "~5.4.2"
+  },
+  "description": "ISCSI Manager, a simple tool to manage ISCSI targets",
+  "author": {
+    "name": "Ibaraki Douji",
+    "email": "ibaraki@ibaraki.app"
+  },
+  "license": "MIT",
+  "homepage": "https://git.ibaraki.app/apps/iscsi-manager",
+  "build": {
+    "appId": "app.ibaraki.iscsi-manager",
+    "productName": "ISCSI Manager",
+    "files": [
+      "dist/browser/**/*",
+      "node_modules/**/*",
+      "public/**/*",
+      "lib/**/*",
+      "package.json"
+    ],
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "category": "Utility",
+      "icon": "./public"
+    }
+  }
+}

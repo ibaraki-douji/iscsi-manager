@@ -1,0 +1,42 @@
+<app-section>
+
+    <app-section-title>Discovered Targets</app-section-title>
+
+    <div class="section-content">
+
+        <span>Discovered targets are stored in Electron LocalStorage to avoid asking your password everytime. If you remove or add one from the CLI it wont update here.</span>
+
+        <app-list>
+
+            <app-list-header>
+                <span [style]="{'gridColumn':'1/4'}" >Target</span>
+                <span [style]="{textAlign:'right'}">Status</span>
+                <div></div>
+                <div></div>
+                
+            </app-list-header>
+
+           @for (target of targets; track $index){
+            <app-list-item (click)="focusedTarget = target" [ariaSelected]="focusedTarget === target">
+                <span [style]="{'gridColumn':'1/4'}" >{{target}}</span>
+                <span>{{driveConnected(target) ? 'Connected' : 'Disconnected'}}</span>
+            </app-list-item>
+           }   
+        </app-list>
+
+    </div>
+
+</app-section>
+
+<app-section class="action">
+
+    <app-section-title>Target Actions</app-section-title>
+
+    <div class="section-content">
+
+        <app-button (click)="connect()">Connect</app-button>
+        <app-button (click)="disconnect()">Disconnect</app-button>
+        <app-button (click)="remove()">Remove</app-button>
+
+    </div>
+</app-section>

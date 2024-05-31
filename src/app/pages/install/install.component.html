@@ -1,0 +1,23 @@
+<app-section>
+
+    <app-section-title>Install</app-section-title>
+
+    <div class="section-content">
+
+        <span>Please install all the required packages</span>
+
+        <app-list>
+
+            @for (package of packages; track $index){
+                <app-list-item>{{package}}</app-list-item>
+            } 
+
+        </app-list>
+        
+        <br>
+
+        <span>and restart the application (can work without but to be sure do it)</span>
+
+    </div>
+
+</app-section>

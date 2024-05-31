@@ -1,0 +1,74 @@
+stages:
+  - Build
+  - Upload
+  - Release
+
+build:
+  stage: Build
+  image: electronuserland/builder
+  before_script:
+    - npm install
+  script:
+    - export VERSION=$(node -e "console.log(require('./package.json').version)")
+    - echo "VERSION=$VERSION" >> variables.env
+    - export APPNAME=$(node -e "console.log(require('./package.json').productName)")
+    - echo "APPNAME=$APPNAME" >> variables.env
+    - test "$CI_COMMIT_BRANCH" == "master" && export APPNAME="$APPNAME" || export APPNAME="$APPNAME-dev"
+    - npm run pack
+    - apt update && apt install rename -y
+    - cd dist && rename 's/ /-/g' * && cd ..
+  artifacts:
+    reports:
+      dotenv: variables.env
+    name: $CI_COMMIT_REF_SLUG
+    paths:
+      - $CI_PROJECT_DIR/dist/*.*
+    when: on_success
+  only:
+    - master
+    - dev
+
+variables:
+  LINUX_BINARY: '${APPNAME}-${VERSION}.AppImage'
+  LINUX_INSTALLER: '${APPNAME}_${VERSION}_amd64.deb'
+  PACKAGE_REGISTRY_URL: '${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/${APPNAME}/${VERSION}'
+  PACKAGE_REGISTRY_URL_YML: '${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/${APPNAME}'
+
+upload:
+  stage: Upload
+  needs:
+    - job: build
+      artifacts: true
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: never
+
+  script:
+    - |
+      curl --header "JOB-TOKEN: ${CI_JOB_TOKEN}" -L --upload-file "./dist/${LINUX_BINARY}" "${PACKAGE_REGISTRY_URL}/${LINUX_BINARY}" && \
+      curl --header "JOB-TOKEN: ${CI_JOB_TOKEN}" -L --upload-file "./dist/${LINUX_INSTALLER}" "${PACKAGE_REGISTRY_URL}/${LINUX_INSTALLER}" \
+  only:
+    - master
+    - dev
+
+auto-release:
+  image: registry.gitlab.com/gitlab-org/release-cli
+  needs:
+    - job: build
+      artifacts: true
+    - job: upload
+      artifacts: true
+  stage: Release
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: never
+  script:
+    - echo "Release $VERSION"
+    - |
+      release-cli --server-url https://git.ibaraki.app \
+      create --name "Release $VERSION" --tag-name v$VERSION \
+      --description 'Ibaraki Group' --ref $CI_COMMIT_SHA \
+      --assets-link "{\"name\":\"${APPNAME} Linux AppImage\",\"url\":\"${PACKAGE_REGISTRY_URL}/${LINUX_BINARY}\"}" \
+      --assets-link "{\"name\":\"${APPNAME} Linux DEB\",\"url\":\"${PACKAGE_REGISTRY_URL}/${LINUX_INSTALLER}\"}" \
+  only:
+    - master

@@ -1,0 +1,10 @@
+:host{
+    display: block;
+}
+
+h2{
+    font-size: 1em;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+}

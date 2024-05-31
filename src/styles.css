@@ -1,0 +1,32 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+}
+
+*{
+    --background-color: #272727;
+    color: #fff;
+}
+
+hr[vertical="true"] {
+    border: 0;
+    height: 100%;
+    margin: 0;
+    width: 2px;
+    background-color: #cecece;
+}
+
+hr[horizontal="true"] {
+    border: 0;
+    width: 100%;
+    margin: 0;
+    height: 2px;
+    background-color: #cecece;
+}

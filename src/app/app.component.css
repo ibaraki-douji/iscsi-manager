@@ -1,0 +1,20 @@
+.tab{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 50px;
+    flex-direction: row;
+} 
+
+.tab a{
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+} 
+
+.page{
+    display: flex;
+    height: calc(100vh - 92px);
+    flex-direction: column;
+    padding: 10px 20px;
+} 
