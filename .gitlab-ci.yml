@@ -42,14 +42,13 @@ upload:
   rules:
     - if: $CI_COMMIT_TAG
       when: never
+    - if: $CI_COMMIT_BRANCH == "master" || $CI_COMMIT_BRANCH == "dev"
+      when: always
 
   script:
     - |
       curl --header "JOB-TOKEN: ${CI_JOB_TOKEN}" -L --upload-file "./dist/${LINUX_BINARY}" "${PACKAGE_REGISTRY_URL}/${LINUX_BINARY}" && \
       curl --header "JOB-TOKEN: ${CI_JOB_TOKEN}" -L --upload-file "./dist/${LINUX_INSTALLER}" "${PACKAGE_REGISTRY_URL}/${LINUX_INSTALLER}" \
-  only:
-    - master
-    - dev
 
 auto-release:
   image: registry.gitlab.com/gitlab-org/release-cli
@@ -62,6 +61,8 @@ auto-release:
   rules:
     - if: $CI_COMMIT_TAG
       when: never
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: always
   script:
     - echo "Release $VERSION"
     - |
@@ -70,5 +71,3 @@ auto-release:
       --description 'Ibaraki Group' --ref $CI_COMMIT_SHA \
       --assets-link "{\"name\":\"${APPNAME} Linux AppImage\",\"url\":\"${PACKAGE_REGISTRY_URL}/${LINUX_BINARY}\"}" \
       --assets-link "{\"name\":\"${APPNAME} Linux DEB\",\"url\":\"${PACKAGE_REGISTRY_URL}/${LINUX_INSTALLER}\"}" \
-  only:
-    - master
