@@ -7,7 +7,7 @@ build:
   stage: Build
   image: electronuserland/builder
   before_script:
-    - npm install
+    - npm install --legacy-peer-deps
   script:
     - export VERSION=$(node -e "console.log(require('./package.json').version)")
     - echo "VERSION=$VERSION" >> variables.env
