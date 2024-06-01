@@ -14,7 +14,8 @@
 
 .page{
     display: flex;
-    height: calc(100vh - 92px);
+    height: calc(100vh - 72px);
     flex-direction: column;
     padding: 10px 20px;
+    overflow-y: auto;
 } 
