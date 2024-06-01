@@ -21,22 +21,14 @@ export class DiscoveryComponent {
     private storage: LocalStorageService
   ){}
 
-  ngOnInit() {
-    this.targets = this.storage.getTargets();
-  }
+  ngOnInit() {}
 
   addTarget() {
     this.progress = 'Discovering targets...';
 
     this.shell.sudo.iscsiadm.discovery(this.textInput.value).then((res: string) => {
       this.progress = "\nTargets discovered successfully.";
-      this.targets = this.targets.concat(res.split('\n').filter((line) => line.includes('iqn') && line.includes(this.textInput.value)))
-        .reduce((acc, target) => {
-          if (!acc.includes(target)) {
-            acc.push(target);
-          }
-          return acc;
-        }, [] as string[]);
+      this.targets = res.split('\n').filter((line) => line.includes('iqn') && line.includes(this.textInput.value));
       this.storage.setTargets(this.targets);
     }).catch((err) => {
       for (const line of (err+'').split('\n')) {
