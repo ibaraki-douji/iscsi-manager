@@ -1,27 +1,82 @@
-# ISCSIManager
+# ISCSI Manager
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.2.
+## Description
 
-## Development server
+This is a simple ISCSI manager that allows discovery, login, logout and list of ISCSI targets.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+You can find the latest release [here](https://git.ibaraki.app/apps/iscsi-manager/-/releases), it includes a DEB package and AppImage. 
 
-## Code scaffolding
+## Features
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Discover ISCSI targets
+- Login to ISCSI targets
+- Logout from ISCSI targets
+- List ISCSI targets
+- Remove ISCSI targets
+- View ISCSI volumes, partitions and filesystems
 
-## Build
+## Development
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Prerequisites
 
-## Running unit tests
+- NodeJS
+- NPM
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+You also need some APT packages:
 
-## Running end-to-end tests
+- open-iscsi
+- util-linux (should be installed by default)
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### Installation
 
-## Further help
+```bash
+npm install
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### Running
+
+#### Running as DEV
+
+```bash
+npm start
+```
+
+#### Running as PROD
+
+```bash
+npm run start:packed
+```
+
+### Building
+
+#### Building Angular
+
+```bash
+npm run ng:build
+```
+
+#### Building Electron
+
+```bash
+npm run electron:build
+```
+
+#### Building all
+
+```bash
+npm run pack
+```
+
+## TODO
+
+- [ ] Add CHAP support
+```bash
+iscsiadm  --mode node --targetname "<iqn>"  --portal <ip:port> --op=update --name node.session.auth.authmethod --value=CHAP
+iscsiadm  --mode node --targetname "<iqn>"  --portal <ip:port> --op=update --name node.session.auth.username --value="<user>"
+iscsiadm  --mode node --targetname "<iqn>" --portal <ip:port> --op=update --name node.session.auth.password --value="<password>"
+```
+- [ ] Add startup button
+```conf
+# /etc/iscsi/iscsid.conf
+node.startup = true
+```
