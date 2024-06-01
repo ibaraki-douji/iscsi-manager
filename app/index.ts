@@ -4,7 +4,7 @@ import { exec as sudo_exec } from 'sudo-prompt';
 import { join } from 'path';
 
 
-const MODE = process.env['NODE_ENV'] === undefined || process.env['NODE_ENV'] === 'production' ? 'production' : 'development';
+const MODE = process.env['NODE_ENV'] === undefined || process.env['NODE_ENV'] === 'dev' ? 'development' : 'production';
 const OPEN_DEV_TOOLS = MODE === 'development';
 
 function createWindow() {
