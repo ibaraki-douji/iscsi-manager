@@ -72,6 +72,12 @@
       ],
       "category": "Settings",
       "icon": "./public"
+    },
+    "deb": {
+      "depends": [
+        "open-iscsi",
+        "util-linux"
+      ]
     }
   }
 }
