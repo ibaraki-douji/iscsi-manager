@@ -22,7 +22,18 @@ export class TargetsComponent {
   async ngOnInit(){
     this.targets = this.storage.getTargets();
 
-    const mapped = await this.shell.user.ls.l('/dev/disk/by-path/ip-*');
+    let mapped: string;
+
+    try {
+      mapped = await this.shell.user.ls.l('/dev/disk/by-path/ip-*');
+    } catch (e: any) {
+      if ((e+'').includes('No such file or directory')){
+        mapped = '';
+      } else {
+        throw e;
+      }
+    }
+    
     this.localDrives = mapped.split('\n').filter(e => e.includes('../sd')).map(e => {
       return {
         target: e.substring(e.indexOf('/dev'), e.indexOf(' -> ')).split('/').reverse()[0],
