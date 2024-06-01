@@ -1,11 +1,11 @@
 {
   "name": "iscsi-manager",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "main": "lib/index.js",
   "scripts": {
     "ng": "ng",
     "ng:start": "ng serve",
-    "ng:build": "ng build --output-path=dist",
+    "ng:build": "ng build --output-path=dist && sed -i 's@<base href=\"/\">@<base href=\"./\">@g' dist/browser/index.html",
     "ng:watch": "ng build --watch --configuration development",
     "ng:test": "ng test",
     "electron": "electron",
@@ -70,7 +70,7 @@
         "AppImage",
         "deb"
       ],
-      "category": "Utility",
+      "category": "Settings",
       "icon": "./public"
     }
   }
