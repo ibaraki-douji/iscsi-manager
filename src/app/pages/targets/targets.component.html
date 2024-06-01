@@ -28,6 +28,24 @@
 
 </app-section>
 
+<app-section class="chap">
+
+    <app-section-title>CHAP Credentials</app-section-title>
+
+    <div class="section-content">
+
+        <span>Use CHAP credentials to connect to the target.</span>
+
+        <app-text-input #username>Username</app-text-input>
+        <app-text-input #password>Password</app-text-input>
+        <div>
+            <input #useChap type="checkbox" id="useCHAP" name="useCHAP" value="useCHAP">
+            <label for="useCHAP">Use CHAP</label>
+        </div>
+    </div>
+
+</app-section>
+
 <app-section class="action">
 
     <app-section-title>Target Actions</app-section-title>

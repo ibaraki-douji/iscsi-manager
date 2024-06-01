@@ -53,13 +53,23 @@ class Runner{
         return this.run('iscsiadm -m discovery -t st -p ' + host);
       },
       node: {
-        login: (target: string) => {
+        login: (target: string, user?: string, pass?: string) => {
           let ip = "";
+
           if (target.includes(" ")){
             const parts = target.split(" ");
             ip = parts[0];
             target = parts[1];
-            return this.run('iscsiadm -m node -T ' + target + ' -p ' + ip + ' -l');
+
+            let chapCommands = "";
+
+            if (user && pass){
+              chapCommands = 'iscsiadm -m node -T ' + target + ' -p ' + ip + ' --op=update -n node.session.auth.authmethod -v CHAP && ' +
+              'iscsiadm -m node -T ' + target + ' -p ' + ip + ' --op=update -n node.session.auth.username -v ' + user + ' && ' +
+              'iscsiadm -m node -T ' + target + ' -p ' + ip + ' --op=update -n node.session.auth.password -v ' + pass + ' && ';
+            }
+
+            return this.run(chapCommands + 'iscsiadm -m node -T ' + target + ' -p ' + ip + ' -l');
           } else {
             return this.run('iscsiadm -m node -T ' + target + ' -l');
           }  
@@ -74,6 +84,26 @@ class Runner{
           } else {
             return this.run('iscsiadm -m node -T ' + target + ' -u');
           }  
+        },
+        update: {
+          authMethod: (target: string, method: string) => {
+            const ip = target.split(" ")[0];
+            const iqn = target.split(" ")[1];
+
+            return this.run('iscsiadm -m node -T ' + iqn + ' -p ' + ip + ' -o update -n node.session.auth.authmethod -v ' + method);
+          },
+          username: (target: string, username: string) => {
+            const ip = target.split(" ")[0];
+            const iqn = target.split(" ")[1];
+
+            return this.run('iscsiadm -m node -T ' + iqn + ' -p ' + ip + ' -o update -n node.session.auth.username -v ' + username);
+          },
+          password: (target: string, password: string) => {
+            const ip = target.split(" ")[0];
+            const iqn = target.split(" ")[1];
+
+            return this.run('iscsiadm -m node -T ' + iqn + ' -p ' + ip + ' -o update -n node.session.auth.password -v ' + password);
+          }
         }
       } 
     } 

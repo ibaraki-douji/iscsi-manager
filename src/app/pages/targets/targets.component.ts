@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CommandService } from '../../shared/services/command.service';
 import { LocalStorageService } from '../../shared/services/local-storage.service';
+import { TextInputComponent } from '../../shared/components/text-input/text-input.component';
 
 @Component({
   selector: 'app-targets',
@@ -13,6 +14,10 @@ export class TargetsComponent {
   focusedTarget: string = '';
 
   localDrives: any[] = [];
+
+  @ViewChild('username') chapUser!: TextInputComponent;
+  @ViewChild('password') chapPass!: TextInputComponent;
+  @ViewChild('useChap') useChap!: ElementRef<HTMLInputElement>;
 
   constructor(
     private shell: CommandService,
@@ -47,7 +52,11 @@ export class TargetsComponent {
   }
 
   async connect(){
-    await this.shell.sudo.iscsiadm.node.login(this.focusedTarget);
+    if (!this.targets.includes(this.focusedTarget)){
+      return;
+    }
+
+    await this.shell.sudo.iscsiadm.node.login(this.focusedTarget, this.useChap.nativeElement.checked ? this.chapUser.value : '', this.useChap.nativeElement.checked ? this.chapPass.value : '');
     await this.ngOnInit();
   }
   
