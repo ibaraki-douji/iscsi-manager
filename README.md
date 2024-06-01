@@ -69,14 +69,14 @@ npm run pack
 
 ## TODO
 
-- [ ] Add CHAP support
-```bash
-iscsiadm  --mode node --targetname "<iqn>"  --portal <ip:port> --op=update --name node.session.auth.authmethod --value=CHAP
-iscsiadm  --mode node --targetname "<iqn>"  --portal <ip:port> --op=update --name node.session.auth.username --value="<user>"
-iscsiadm  --mode node --targetname "<iqn>" --portal <ip:port> --op=update --name node.session.auth.password --value="<password>"
-```
-- [ ] Add startup button
+- [ ] Add Default CHAP support
 ```conf
 # /etc/iscsi/iscsid.conf
-node.startup = true
+discovery.sendtargets.auth.authmethod = CHAP
+discovery.sendtargets.auth.username = jdoe
+discovery.sendtargets.auth.password = YourSecurePwd1
+
+node.session.auth.authmethod = CHAP
+node.session.auth.username = jdoe
+node.session.auth.password = YourSecurePwd1
 ```
