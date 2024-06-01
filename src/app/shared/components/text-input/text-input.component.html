@@ -1,3 +1,6 @@
 <div class="container">
-    <input #input  type="text" class="input" (change)="onChange($event)">
+
+    <span class="label" #label [style]="{display: 'none'}"><ng-content></ng-content></span>
+
+    <input #input  type="text" class="input" (change)="onChange($event)" [placeholder]="label.textContent">
 </div>
