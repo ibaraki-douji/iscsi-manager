@@ -9,11 +9,12 @@ You can find the latest release [here](https://git.ibaraki.app/apps/iscsi-manage
 ## Features
 
 - Discover ISCSI targets
-- Login to ISCSI targets
+- Login to ISCSI targets (with CHAP support)
 - Logout from ISCSI targets
 - List ISCSI targets
 - Remove ISCSI targets
 - View ISCSI volumes, partitions and filesystems
+- Toggle ISCSI service (and start it on boot)
 
 ## Development
 
