@@ -156,6 +156,31 @@ class Runner{
         return this.run('ls -la ' + path);
       }
     }
-  }  
+  }
+
+  cat(path: string) {
+    return this.run('cat ' + path);
+  }
+
+  sed(path: string, search: string, replace: string, splitter: string = '/') {
+    return this.run('sed -i \'s' + splitter + search + splitter + replace + splitter + 'g\' ' + path);
+  }
+
+  get systemctl() {
+    return {
+      start: (service: string) => {
+        return this.run('systemctl start ' + service);
+      },
+      stop: (service: string) => {
+        return this.run('systemctl stop ' + service);
+      },
+      restart: (service: string) => {
+        return this.run('systemctl restart ' + service);
+      },
+      status: (service: string) => {
+        return this.run('systemctl status ' + service);
+      }
+    }
+  }
 
 } 

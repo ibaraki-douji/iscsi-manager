@@ -1,0 +1,4 @@
+.startup .section-content, .iscsiAction .section-content {
+    display: grid;
+    gap: 10px;
+}

@@ -4,6 +4,7 @@ import { DiscoveryComponent } from './pages/discovery/discovery.component';
 import { TargetsComponent } from './pages/targets/targets.component';
 import { VolumesComponent } from './pages/volumes/volumes.component';
 import { InstallComponent } from './pages/install/install.component';
+import { SettingsComponent } from './pages/settings/settings.component';
 
 const routes: Routes = [
   {
@@ -26,7 +27,11 @@ const routes: Routes = [
   {
     path: 'install',
     component: InstallComponent
-  } 
+  },
+  {
+    path: 'settings',
+    component: SettingsComponent
+  }
 ];
 
 @NgModule({

@@ -5,6 +5,7 @@ import { ComponentsModule } from '../shared/components/components.module';
 import { TargetsComponent } from './targets/targets.component';
 import { VolumesComponent } from './volumes/volumes.component';
 import { InstallComponent } from './install/install.component';
+import { SettingsComponent } from './settings/settings.component';
 
 
 
@@ -13,7 +14,8 @@ import { InstallComponent } from './install/install.component';
     DiscoveryComponent,
     TargetsComponent,
     VolumesComponent,
-    InstallComponent
+    InstallComponent,
+    SettingsComponent
   ],
   imports: [
     CommonModule,

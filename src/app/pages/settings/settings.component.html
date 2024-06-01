@@ -1,0 +1,30 @@
+<app-section class="startup">
+
+    <app-section-title>Auto Startup</app-section-title>
+
+    <div class="section-content">
+        <span>Start the app automatically when you log in to your computer.</span>
+        <span>Currently {{ autoStart ? 'enabled' : 'disabled' }}.</span>
+
+        @if (autoStart) {
+            <app-button (click)="toggleAutoStart()">Disable</app-button>
+        } @else {
+            <app-button (click)="toggleAutoStart()">Enable</app-button>
+        }
+    </div>
+
+</app-section>
+
+<app-section class="iscsiAction">
+
+    <app-section-title>iSCSI Actions</app-section-title>
+
+    <div class="section-content">
+        
+        <app-button (click)="startService()">Start iSCSI Service</app-button>
+        <app-button (click)="stopService()">Stop iSCSI Service</app-button>
+        <app-button (click)="restartService()">Restart iSCSI Service</app-button>
+
+    </div>
+
+</app-section>
