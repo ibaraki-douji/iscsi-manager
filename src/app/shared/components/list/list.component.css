@@ -9,7 +9,7 @@
     padding: 10px;
 }
 
-:host /deep/ app-list-header .container, :host /deep/ app-list-item .container{
+:host ::ng-deep app-list-header .container, :host ::ng-deep app-list-item .container{
     display: grid;
     grid-template-columns: repeat(var(--columns), 1fr);
 }

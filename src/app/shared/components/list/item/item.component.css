@@ -2,6 +2,6 @@
     margin-bottom: 10px;
 } 
 
-:host /deep/ .container *:last-child{
+:host ::ng-deep .container *:last-child{
     text-align: right;
 } 

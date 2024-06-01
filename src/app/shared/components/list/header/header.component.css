@@ -9,6 +9,6 @@
     border-bottom: 1px solid #ccc;
 }
 
-:host /deep/ .container *:last-child{
+:host ::ng-deep .container *:last-child{
     text-align: right;
 } 
